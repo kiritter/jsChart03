@@ -316,6 +316,7 @@ var LineChart = function() {
 			})
 			.attr("class", "legendSeries");
 
+		var lineWidth = 40;
 		legendSeries.each(function(d) {
 			var el = d3.select(this);
 
@@ -329,7 +330,7 @@ var LineChart = function() {
 				})
 				.attr("x1", 0)
 				.attr("y1", 0)
-				.attr("x2", 40)
+				.attr("x2", lineWidth)
 				.attr("y2", 0)
 				.style("stroke", function(d) {
 					if (d.name === CONST.UL_NM || d.name === CONST.LL_NM) {
@@ -338,6 +339,16 @@ var LineChart = function() {
 						return colors(d.name);
 					}
 				});
+
+			if (d.name !== CONST.UL_NM && d.name !== CONST.LL_NM) {
+				el.append("circle")
+					.attr("cx", lineWidth/2)
+					.attr("cy", 0)
+					.attr("r", 3.5)
+					.attr("fill", function(d) {
+						return colors(d.name);
+					});
+			}
 
 			el.append("text")
 				.attr("x", 0)
